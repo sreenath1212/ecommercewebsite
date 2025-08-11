@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create the Axios instance
 const API_CLIENT = axios.create({
-    baseURL: 'http://localhost:5000/api', // Ensure this matches your backend API base URL
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api', // Use environment variable for production
     headers: {
         'Content-Type': 'application/json',
     },

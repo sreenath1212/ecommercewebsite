@@ -24,9 +24,13 @@ const PORT = process.env.PORT || 5000;
 // Middleware to parse JSON bodies from incoming requests
 app.use(express.json());
 
-// Configure CORS to allow requests from your React frontend
+// Configure CORS to allow requests from your React frontend and Render domains
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: [
+        'http://localhost:3000',
+        'https://your-frontend-app-name.onrender.com', // Replace with your actual frontend Render URL
+        process.env.FRONTEND_URL // Environment variable for frontend URL
+    ].filter(Boolean),
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204
