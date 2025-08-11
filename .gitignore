@@ -52,6 +52,7 @@ temp/
 # Firebase
 .firebase/
 firebase-debug.log
+apas-agri-horty-firebase-admin.json
 
 # Uploads (if you want to exclude uploaded files)
 uploads/*
