@@ -1,0 +1,75 @@
+services:
+  - type: psql
+    name: agri-ecommerce-db
+    plan: free
+    databaseName: agri_ecommerce
+    user: agri_user
+
+  - type: web
+    name: agri-ecommerce-backend
+    env: node
+    plan: free
+    repo: https://github.com/sreenath1212/ecommercewebsite.git # Replace with your repo URL if different
+    rootDir: ./agri_ecommerce_backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - fromService:
+          type: psql
+          name: agri-ecommerce-db
+          property: user
+        key: DB_USER
+      - fromService:
+          type: psql
+          name: agri-ecommerce-db
+          property: host
+        key: DB_HOST
+      - fromService:
+          type: psql
+          name: agri-ecommerce-db
+          property: database
+        key: DB_DATABASE
+      - fromService:
+          type: psql
+          name: agri-ecommerce-db
+          property: password
+        key: DB_PASSWORD
+      - key: DB_PORT
+        value: 5432
+      - key: JWT_SECRET
+        sync: false
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_PORT
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CALLBACK_URL
+        sync: false
+      - key: FRONTEND_URL
+        value: "https://agri-ecommerce-frontend.onrender.com" # Will be created by the frontend service
+
+  - type: web
+    name: agri-ecommerce-frontend
+    env: static
+    plan: free
+    repo: https://github.com/sreenath1212/ecommercewebsite.git # Replace with your repo URL if different
+    rootDir: ./agri_ecommerce_frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: agri-ecommerce-backend
+          property: url
