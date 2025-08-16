@@ -1,5 +1,5 @@
 services:
-  - type: psql
+  - type: postgres
     name: agri-ecommerce-db
     plan: free
     databaseName: agri_ecommerce
