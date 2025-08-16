@@ -2,7 +2,6 @@ services:
   - type: web
     name: agri-ecommerce-backend
     env: node
-    plan: free
     repo: https://github.com/sreenath1212/ecommercewebsite.git
     rootDir: ./agri_ecommerce_backend
     buildCommand: npm install
@@ -52,7 +51,6 @@ services:
   - type: web
     name: agri-ecommerce-frontend
     env: static
-    plan: free
     repo: https://github.com/sreenath1212/ecommercewebsite.git
     rootDir: ./agri_ecommerce_frontend
     buildCommand: npm install && npm run build
