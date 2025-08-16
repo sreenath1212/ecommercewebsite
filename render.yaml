@@ -1,5 +1,5 @@
 services:
-  - type: db
+  - type: postgresql
     name: agri-ecommerce-db
     plan: free
     databaseName: agri_ecommerce
@@ -19,22 +19,22 @@ services:
       - key: PORT
         value: 10000
       - fromService:
-          type: db
+          type: postgresql
           name: agri-ecommerce-db
           property: user
         key: DB_USER
       - fromService:
-          type: db
+          type: postgresql
           name: agri-ecommerce-db
           property: host
         key: DB_HOST
       - fromService:
-          type: db
+          type: postgresql
           name: agri-ecommerce-db
           property: database
         key: DB_DATABASE
       - fromService:
-          type: db
+          type: postgresql
           name: agri-ecommerce-db
           property: password
         key: DB_PASSWORD
