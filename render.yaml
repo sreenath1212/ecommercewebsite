@@ -59,10 +59,7 @@ services:
     staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
-        fromService:
-          type: web
-          name: agri-ecommerce-backend
-          property: url
+        value: "https://agri-ecommerce-backend.onrender.com"
 
 databases:
   - name: agri-ecommerce-db
