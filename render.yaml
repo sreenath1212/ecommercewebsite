@@ -1,15 +1,9 @@
 services:
-  - type: postgresql
-    name: agri-ecommerce-db
-    plan: free
-    databaseName: agri_ecommerce
-    user: agri_user
-
   - type: web
     name: agri-ecommerce-backend
     env: node
     plan: free
-    repo: https://github.com/sreenath1212/ecommercewebsite.git # Replace with your repo URL if different
+    repo: https://github.com/sreenath1212/ecommercewebsite.git
     rootDir: ./agri_ecommerce_backend
     buildCommand: npm install
     startCommand: npm start
@@ -18,28 +12,24 @@ services:
         value: production
       - key: PORT
         value: 10000
-      - fromService:
-          type: postgresql
+      - key: DB_USER
+        fromDatabase:
           name: agri-ecommerce-db
           property: user
-        key: DB_USER
-      - fromService:
-          type: postgresql
+      - key: DB_HOST
+        fromDatabase:
           name: agri-ecommerce-db
           property: host
-        key: DB_HOST
-      - fromService:
-          type: postgresql
+      - key: DB_DATABASE
+        fromDatabase:
           name: agri-ecommerce-db
           property: database
-        key: DB_DATABASE
-      - fromService:
-          type: postgresql
+      - key: DB_PASSWORD
+        fromDatabase:
           name: agri-ecommerce-db
           property: password
-        key: DB_PASSWORD
       - key: DB_PORT
-        value: 5432
+        value: "5432"
       - key: JWT_SECRET
         sync: false
       - key: EMAIL_HOST
@@ -57,13 +47,13 @@ services:
       - key: GOOGLE_CALLBACK_URL
         sync: false
       - key: FRONTEND_URL
-        value: "https://agri-ecommerce-frontend.onrender.com" # Will be created by the frontend service
+        value: "https://agri-ecommerce-frontend.onrender.com"
 
   - type: web
     name: agri-ecommerce-frontend
     env: static
     plan: free
-    repo: https://github.com/sreenath1212/ecommercewebsite.git # Replace with your repo URL if different
+    repo: https://github.com/sreenath1212/ecommercewebsite.git
     rootDir: ./agri_ecommerce_frontend
     buildCommand: npm install && npm run build
     staticPublishPath: ./build
@@ -73,3 +63,9 @@ services:
           type: web
           name: agri-ecommerce-backend
           property: url
+
+databases:
+  - name: agri-ecommerce-db
+    plan: free
+    databaseName: agri_ecommerce
+    user: agri_user
