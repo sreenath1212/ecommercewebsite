@@ -19,22 +19,22 @@ services:
       - key: PORT
         value: 10000
       - fromService:
-          type: psql
+          type: postgres
           name: agri-ecommerce-db
           property: user
         key: DB_USER
       - fromService:
-          type: psql
+          type: postgres
           name: agri-ecommerce-db
           property: host
         key: DB_HOST
       - fromService:
-          type: psql
+          type: postgres
           name: agri-ecommerce-db
           property: database
         key: DB_DATABASE
       - fromService:
-          type: psql
+          type: postgres
           name: agri-ecommerce-db
           property: password
         key: DB_PASSWORD
